@@ -1,6 +1,6 @@
-def Address < ApplicationRecord::Base
+class Address < ApplicationRecord
   require 'csv'
-  belongs_to :users
+  belongs_to :jobs
 
   def self.import(file)
     CSV.foreach(file.path, headers: false) do |row|
@@ -11,7 +11,7 @@ def Address < ApplicationRecord::Base
         state: row[3],
         zip: row[4],
         # user_id: current_user.id,
-        # job_name: something...
+        # job_id: 
       }
       Address.create!(hash)
     end

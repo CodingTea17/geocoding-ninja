@@ -4,7 +4,7 @@ Geocoder.configure(
     :lookup => :bing,
 
     # to use an API key:
-    :api_key => 'AqINn4H3dL9tN4Lr3WhILS0AnqjuLvueL3-u_6Buln_v9aex5gzW4Bn_agILlqMD',
+    :api_key => ENV['BING_API'],
 
     # this is very important option for configuring geocoder with API key
     :use_https => true,

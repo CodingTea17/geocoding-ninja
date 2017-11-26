@@ -1,16 +1,24 @@
-<div class="row justify-content-center">
+<div class="row justify-content-center mb-3">
   <div class="col-9">
-      <div class="card card-body">
-        <h2><%= @job.name %><h2>
+    <div class="card card-body">
+      <div class="row">
+        <div class="col-7">
+          <h1><%= @job.name %><h1>
+        </div>
+        <% if @job.addresses.any? %>
+        <div class="col-5">
+          <%= link_to 'Download Geocoded CSV', user_job_path(current_user, @job, format: :csv), :class => "btn btn-primary btn-block btn-lg" %>
+        </div>
+        <% end %>
       </div>
+    </div>
   </div>
 </div>
 <div class="row justify-content-center">
   <div class="col-9">
     <% if @job.addresses.any? %>
-      <h4>Here are the addresses for this job:</h4>
-      <table>
-        <thead>
+      <table class="table">
+        <thead class="thead-light">
           <tr>
             <th>Address</th>
             <th>City</th>
@@ -34,17 +42,24 @@
         </tbody>
       </table>
     <% else %>
-      <p>There are no addresses yet!</p>
-    <% end %>
+      <p>There are no addresses yet! Click import below to get started!</p>
   </div>
 </div>
 <div>
-  <h4>Import Addresses!</h4>
-  <%= form_tag import_user_job_addresses_path(current_user, @job), multipart: true do %>
-    <%= file_field_tag :file %>
-    <%= hidden_field_tag :job_id, @job.id %>
-    <%= submit_tag "Import CSV" %>
-  <% end %>
-</div>
+<div class="row justify-content-center">
+  <div class="col-9">
+    <%= form_tag import_user_job_addresses_path(current_user, @job), multipart: true do %>
+      <h4>1) Select a CSV to upload. The CSV shouldn't have headers and should be ordered: RDBOregon ID, Street Address, City, State, Zipcode.</h4>
+      <div class="form-group">
+        <%= file_field_tag :file %>
+      </div>
+      <%= hidden_field_tag :job_id, @job.id %>
 
-<%= link_to 'Download CSV list', user_job_path(current_user, @job, format: :csv) %>
+      <h4>2) Click 'Import CSV' below to upload and geocode the addresses in the CSV. It will take a little bit to complete.</h4>
+      <div class="form-group">
+        <%= submit_tag "Import CSV", :class => "btn btn-success" %>
+      </div>
+    <% end %>
+  </div>
+</div>
+<% end %>

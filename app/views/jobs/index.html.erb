@@ -1,6 +1,23 @@
 <%= render('layouts/errors', :object => @job) %>
+
+<div class="row justify-content-center mb-3">
+  <div class="col-9">
+    <div class="card card-body">
+      <%= form_for [current_user, @job] do |f| %>
+        <div class="form-group row mb-0">
+          <%= f.label :name, :class => "col-2 col-form-label offset-1" %>
+          <%= f.text_field :name, :class => "form-control col-4" %>
+          <%= f.submit :class => "btn btn-success col-3 offset-1" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<div class="row justify-content-center">
+  <div class="col-9">
 <% if current_user.jobs.count > 0 %>
-  <table class="table">
+  <table class="table table-bordered">
     <thead class="thead-light">
       <tr>
         <th scope="col">#</th>
@@ -23,13 +40,5 @@
 <% else %>
   <p>No jobs yet</p>
 <% end %>
-
-<div class="card card-body">
-  <%= form_for [current_user, @job] do |f| %>
-    <div class="form-group row">
-      <%= f.label :name, :class => "col-1 col-form-label" %>
-      <%= f.text_field :name, :class => "form-control col-5" %>
-    </div>
-    <p><%= f.submit :class => "btn btn-success" %></p>
-  <% end %>
+  </div>
 </div>

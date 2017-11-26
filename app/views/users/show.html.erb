@@ -1,13 +1,13 @@
-
-  <% if current_user.jobs.count > 1 %>
-  <ul>
-    <% current_user.jobs.each do |job| %>
-      <li><%= job.name %></li>
-    <% end %>
-  </ul>
-  <% else %>
-    <p>No jobs yet</p>
+<!-- NOT BEING USED -->
+<% if current_user.jobs.count > 1 %>
+<ul>
+  <% current_user.jobs.each do |job| %>
+    <li><%= job.name %></li>
   <% end %>
+</ul>
+<% else %>
+  <p>No jobs yet</p>
+<% end %>
 
 <div class="card card-body">
   <%= form_for [current_user, @job] do |f| %>

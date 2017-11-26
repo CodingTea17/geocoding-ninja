@@ -1,8 +1,8 @@
 class Address < ApplicationRecord
   require 'csv'
-  belongs_to :jobs
+  belongs_to :job, optional: true
 
-  def self.import(file)
+  def self.import(file, job_id)
     CSV.foreach(file.path, headers: false) do |row|
       hash = {
         property_id: row[0],
@@ -10,8 +10,7 @@ class Address < ApplicationRecord
         city: row[2],
         state: row[3],
         zip: row[4],
-        # user_id: current_user.id,
-        # job_id: 
+        job_id: job_id
       }
       Address.create!(hash)
     end

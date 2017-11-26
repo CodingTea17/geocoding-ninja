@@ -1,0 +1,44 @@
+<div class="row justify-content-center">
+  <div class="col-9">
+      <div class="card card-body">
+        <h2><%= @job.name %><h2>
+      </div>
+  </div>
+</div>
+<div class="row justify-content-center">
+  <div class="col-9">
+    <% if @job.addresses.any? %>
+      <h4>Here are the addresses for this job:</h4>
+      <table>
+        <thead>
+          <tr>
+            <th>Address</th>
+            <th>City</th>
+            <th>State</th>
+            <th>Zipcode</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @job.addresses.each do |address| %>
+            <tr>
+              <td><%= address.address %></td>
+              <td><%= address.city %></td>
+              <td><%= address.state %></td>
+              <td><%= address.zip %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% else %>
+      <p>There are no addresses yet!</p>
+    <% end %>
+  </div>
+</div>
+<div>
+  <h4>Import Addresses!</h4>
+  <%= form_tag import_user_job_addresses_path(current_user, @job), multipart: true do %>
+    <%= file_field_tag :file %>
+    <%= hidden_field_tag :job_id, @job.id %>
+    <%= submit_tag "Import CSV" %>
+  <% end %>
+</div>

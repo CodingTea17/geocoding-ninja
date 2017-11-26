@@ -1,0 +1,35 @@
+<%= render('layouts/errors', :object => @job) %>
+<% if current_user.jobs.count > 0 %>
+  <table class="table">
+    <thead class="thead-light">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Job Name</th>
+        <th scope="col">Address Count</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% current_user.jobs.each_with_index do |job, i| %>
+        <% if job.name %>
+          <tr>
+            <th scope="row"><%= i + 1 %></th>
+            <td><%= link_to job.name, user_job_path(current_user, job) %></td>
+            <td>100</td>
+          </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>No jobs yet</p>
+<% end %>
+
+<div class="card card-body">
+  <%= form_for [current_user, @job] do |f| %>
+    <div class="form-group row">
+      <%= f.label :name, :class => "col-1 col-form-label" %>
+      <%= f.text_field :name, :class => "form-control col-5" %>
+    </div>
+    <p><%= f.submit :class => "btn btn-success" %></p>
+  <% end %>
+</div>

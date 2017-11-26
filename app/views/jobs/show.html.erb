@@ -46,3 +46,5 @@
     <%= submit_tag "Import CSV" %>
   <% end %>
 </div>
+
+<%= link_to 'Download CSV list', user_job_path(current_user, @job, format: :csv) %>

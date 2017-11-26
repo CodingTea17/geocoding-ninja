@@ -7,6 +7,11 @@ class JobsController < ApplicationController
 
   def show
     @job = Job.find(params[:id])
+
+    respond_to do |format|
+      format.html
+      format.csv { send_data @job.addresses.to_csv(@job.id), filename: "addresses-#{Date.today}.csv" }
+    end
   end
 
   def create

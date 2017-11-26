@@ -18,6 +18,16 @@ class Address < ApplicationRecord
     end
   end
 
+  def self.to_csv(job_id)
+    CSV.generate(headers: false) do |csv|
+      all.each do |address|
+        if address.job_id === job_id
+          csv << [ address.property_id, address.latitude, address.longitude ]
+        end
+      end
+    end
+  end
+
   def full_address
     "#{address}, #{city}, #{state}, #{zip}"
   end

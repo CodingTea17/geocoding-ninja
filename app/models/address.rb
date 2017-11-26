@@ -1,5 +1,7 @@
 class Address < ApplicationRecord
   require 'csv'
+  geocoded_by :full_address
+  after_validation :geocode, :if => :address_changed?
   belongs_to :job, optional: true
 
   def self.import(file, job_id)
@@ -14,5 +16,9 @@ class Address < ApplicationRecord
       }
       Address.create!(hash)
     end
+  end
+
+  def full_address
+    "#{address}, #{city}, #{state}, #{zip}"
   end
 end

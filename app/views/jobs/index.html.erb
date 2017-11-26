@@ -31,7 +31,7 @@
           <tr>
             <th scope="row"><%= i + 1 %></th>
             <td><%= link_to job.name, user_job_path(current_user, job) %></td>
-            <td>100</td>
+            <td><%= job.addresses.count %></td>
           </tr>
         <% end %>
       <% end %>
